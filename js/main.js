@@ -155,4 +155,22 @@ showProducts(products);
                 <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>
               </div>*/
-              
+
+const btnAddProduct = document.querySelector("#btn-add-product");
+
+btnAddProduct.addEventListener("click", function(){
+    const title = document.querySelector("#input-title");
+    const description = document.querySelector("#input-description");
+    const imageUrl = document.querySelector("#input-image");
+    const productLink = document.querySelector("#input-product-link");
+    const googleLink = document.querySelector("#input-google-link");
+
+    let product = {
+        title: title.value,
+        description: description.value,
+        img_src: imageUrl.value,
+        prod_link: productLink.value,
+        google_link: googleLink.value
+    }
+    showProduct(product);
+})
