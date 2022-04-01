@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "title": "Buso Unisex",
+        "description": "Buso Jordan color verde Unisex",
+        "img_src": "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 2,
+        "title": "Buso Unisex",
+        "description": "Buso Jordan color amarillo Unisex",
+        "img_src": "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+        },
+    {
+        "id": 3,
+        "title": "Buso Unisex",
+        "description": "Buso Jordan color blanco Unisex",
+        "img_src": "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 4,
+        "title": "Buso Unisex",
+        "description": "Buso Jordan color negro Unisex",
+        "img_src": "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 5,
+        "title": "Falda",
+        "description": "Falda Animal Print",
+        "img_src": "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 6,
+        "title": "Falda Unicolor",
+        "description": "Falda larga color negro",
+        "img_src": "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 7,
+        "title": "Falda Unicolor",
+        "description": "Falda larga color blanco",
+        "img_src": "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 8,
+        "title": "Blusa Unicolor",
+        "description": "Blusa blanca",
+        "img_src": "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 9,
+        "title": "Blusa Unicolor",
+        "description": "Blusa negra",
+        "img_src": "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    },
+    {
+        "id": 10,
+        "title": "Camiseta Jordan",
+        "description": "Camiseta Jordan varios colores",
+        "img_src": "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
+        "prod_link": "producto",
+        "google_link": "google"
+    }    
+]

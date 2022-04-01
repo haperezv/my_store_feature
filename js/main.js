@@ -11,96 +11,24 @@ Plus, crear una funcion de JS que permita desde consola agregar un producto al H
 
 //JSON = objetos javascript en formato "string" para poderlos mandar via internet, 
 // las API Application Program Interface
-const products = [
-    {
-        id: 1,
-        title: "Buso Unisex",
-        description: "Buso Jordan color verde Unisex",
-        img_src: "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 2,
-        title: "Buso Unisex",
-        description: "Buso Jordan color amarillo Unisex",
-        img_src: "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-        },
-    {
-        id: 3,
-        title: "Buso Unisex",
-        description: "Buso Jordan color blanco Unisex",
-        img_src: "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 4,
-        title: "Buso Unisex",
-        description: "Buso Jordan color negro Unisex",
-        img_src: "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 5,
-        title: "Falda",
-        description: "Falda Animal Print",
-        img_src: "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 6,
-        title: "Falda Unicolor",
-        description: "Falda larga color negro",
-        img_src: "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 7,
-        title: "Falda Unicolor",
-        description: "Falda larga color blanco",
-        img_src: "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 8,
-        title: "Blusa Unicolor",
-        description: "Blusa blanca",
-        img_src: "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 9,
-        title: "Blusa Unicolor",
-        description: "Blusa negra",
-        img_src: "https://static.dafiti.com.co/p/kuva-1623-9205841-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    {
-        id: 10,
-        title: "Camiseta Jordan",
-        description: "Camiseta Jordan varios colores",
-        img_src: "https://static.dafiti.com.co/p/kuva-2729-6773081-1-catalog-new.jpg",
-        prod_link: "producto",
-        google_link: "google"
-    },
-    
-];
 
-//let carrito = [];
+// FUNCIONES
+
+//save in the localStorage
+function saveLocalStorage(key, data){
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+//get data from localStorage
+function getLocalStorage(key){
+    return JSON.parse(localStorage.getItem(key));
+}
 
 // function that receives a product object
 // and draw in the document the card presentation for it
 function showProduct(product){
     const myNode = document.createElement('div');
+    myNode.id = `product-${product.id}`;
     myNode.classList.add('card', 'col-sm-4');
    
     const myNodeCardBody = document.createElement('div');
@@ -138,8 +66,6 @@ function showProduct(product){
 
     const DOMitems = document.querySelector("#items");
     DOMitems.appendChild(myNode);
-    
-
 }
 
 // myProducts is an array of product objects, iterate throught it and call showProduct function to draw in DOM 
@@ -148,13 +74,6 @@ function showProducts(myProducts) {
         showProduct(product);
     });
 }
-
-showProducts(products);
-/*
-<div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>*/
 
 const btnAddProduct = document.querySelector("#btn-add-product");
 
@@ -165,7 +84,10 @@ btnAddProduct.addEventListener("click", function(){
     const productLink = document.querySelector("#input-product-link");
     const googleLink = document.querySelector("#input-google-link");
 
+    let products = getLocalStorage("products");
+
     let product = {
+        id: products.length + 1,
         title: title.value,
         description: description.value,
         img_src: imageUrl.value,
@@ -173,4 +95,23 @@ btnAddProduct.addEventListener("click", function(){
         google_link: googleLink.value
     }
     showProduct(product);
+    products.push(product);
+    saveLocalStorage("products", products);
 })
+
+// PROGRAMA PRINCIPAL
+
+// ask for info in local storage to avoid rewrite it
+if (getLocalStorage("products") == null){
+    // With fetch you can get data from local or external source
+    // this return a promise and use .then methods to manipulate the data
+    fetch ('../json/products.json')
+        .then(response=>response.json())// the response is converted to json format
+        .then(data=> saveLocalStorage("products", data)) // with the data in json you can print or send to other function
+}
+
+const products = getLocalStorage("products");
+showProducts(products);
+
+
+// CRUD - Create - Read - Update - Delete
