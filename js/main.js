@@ -12,29 +12,23 @@ Plus, crear una funcion de JS que permita desde consola agregar un producto al H
 //JSON = objetos javascript en formato "string" para poderlos mandar via internet, 
 // las API Application Program Interface
 
-// With fetch you can get data from local or external source
-// this return a promise and use .then methods to manipulate the data
-fetch ('../json/products.json')
-    .then(response=>response.json())// the response is converted to json format
-    .then(data=> saveLocalStorage("products", data)) // with the data in json you can print or send to other function
-
+// FUNCIONES
 
 //save in the localStorage
 function saveLocalStorage(key, data){
-    localStorage.setItem(key, JSON.stringify(data))
+    localStorage.setItem(key, JSON.stringify(data));
 }
 
 //get data from localStorage
 function getLocalStorage(key){
-    return localStorage.getItem(key)
+    return JSON.parse(localStorage.getItem(key));
 }
-const products = JSON.parse(getLocalStorage("products"));
-console.log(products)
 
 // function that receives a product object
 // and draw in the document the card presentation for it
 function showProduct(product){
     const myNode = document.createElement('div');
+    myNode.id = `product-${product.id}`;
     myNode.classList.add('card', 'col-sm-4');
    
     const myNodeCardBody = document.createElement('div');
@@ -72,8 +66,6 @@ function showProduct(product){
 
     const DOMitems = document.querySelector("#items");
     DOMitems.appendChild(myNode);
-    
-
 }
 
 // myProducts is an array of product objects, iterate throught it and call showProduct function to draw in DOM 
@@ -82,13 +74,6 @@ function showProducts(myProducts) {
         showProduct(product);
     });
 }
-
-//showProducts(products);
-/*
-<div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>*/
 
 const btnAddProduct = document.querySelector("#btn-add-product");
 
@@ -99,7 +84,10 @@ btnAddProduct.addEventListener("click", function(){
     const productLink = document.querySelector("#input-product-link");
     const googleLink = document.querySelector("#input-google-link");
 
+    let products = getLocalStorage("products");
+
     let product = {
+        id: products.length + 1,
         title: title.value,
         description: description.value,
         img_src: imageUrl.value,
@@ -107,4 +95,23 @@ btnAddProduct.addEventListener("click", function(){
         google_link: googleLink.value
     }
     showProduct(product);
+    products.push(product);
+    saveLocalStorage("products", products);
 })
+
+// PROGRAMA PRINCIPAL
+
+// ask for info in local storage to avoid rewrite it
+if (getLocalStorage("products") == null){
+    // With fetch you can get data from local or external source
+    // this return a promise and use .then methods to manipulate the data
+    fetch ('../json/products.json')
+        .then(response=>response.json())// the response is converted to json format
+        .then(data=> saveLocalStorage("products", data)) // with the data in json you can print or send to other function
+}
+
+const products = getLocalStorage("products");
+showProducts(products);
+
+
+// CRUD - Create - Read - Update - Delete
