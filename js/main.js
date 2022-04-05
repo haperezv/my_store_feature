@@ -105,13 +105,14 @@ btnAddProduct.addEventListener("click", function(){
 if (getLocalStorage("products") == null){
     // With fetch you can get data from local or external source
     // this return a promise and use .then methods to manipulate the data
-    fetch ('../json/products.json')
+    fetch ('./json/products.json')
         .then(response=>response.json())// the response is converted to json format
         .then(data=> saveLocalStorage("products", data)) // with the data in json you can print or send to other function
+        .then(()=>{
+            const products = getLocalStorage("products");
+            showProducts(products);
+        })
 }
-
-const products = getLocalStorage("products");
-showProducts(products);
 
 
 // CRUD - Create - Read - Update - Delete
