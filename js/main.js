@@ -112,6 +112,9 @@ if (getLocalStorage("products") == null){
             const products = getLocalStorage("products");
             showProducts(products);
         })
+} else {
+ const products = getLocalStorage("products");
+ showProducts(products);
 }
 
 
