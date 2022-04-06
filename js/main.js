@@ -55,15 +55,6 @@ function showProduct(product){
     googleLink.href = product.google_link;
     googleLink.textContent = "google"
 
-    
-    const  myNodeCardFooter = document.createElement('div');
-    myNodeCardFooter.classList.add('card-footer');
-
-    const buttonProduct = document.createElement('a');
-    buttonProduct.classList.add('btn', 'btn-primary');
-    buttonProduct.textContent = 'read more';
-    buttonProduct.id = `read-${product.id}`;
-
     // anidaciones
 
     myNodeCardBody.appendChild(myNodeImagen);
@@ -72,8 +63,6 @@ function showProduct(product){
     myNodeCardBody.appendChild(prodLink);
     myNodeCardBody.appendChild(googleLink);
     myNode.appendChild(myNodeCardBody);
-    myNodeCardBody.appendChild(myNodeCardFooter);
-    myNodeCardFooter.appendChild(buttonProduct);
 
     const DOMitems = document.querySelector("#items");
     DOMitems.appendChild(myNode);
@@ -108,7 +97,6 @@ btnAddProduct.addEventListener("click", function(){
     showProduct(product);
     products.push(product);
     saveLocalStorage("products", products);
-    clearForm();
 })
 
 // PROGRAMA PRINCIPAL
@@ -127,68 +115,7 @@ if (getLocalStorage("products") == null){
 } else {
  const products = getLocalStorage("products");
  showProducts(products);
-products.forEach((product) => {
-    const buttonProduct = document.querySelector(`#read-${product.id}`);
-    buttonProduct.addEventListener("click", function(){
-
-        readProducts(product.id,product.title,product.description,product.img_src,product.prod_link,product.google_link);
-
-    });
-})
-    
-
 }
 
 
 // CRUD - Create - Read - Update - Delete
-
-function readProducts(id,title,description,imageUrl,productLink,googleLink){
-    console.log(id);
-    //var id = id;
-    const title_form = document.querySelector("#input-title");
-    const description_form = document.querySelector("#input-description");
-    const image = document.querySelector("#input-image");
-    const product_form = document.querySelector("#input-product-link");
-    const google= document.querySelector("#input-google-link");
-
-    title_form.value = title;
-    description_form.value = description;
-    image.value = imageUrl;
-    product_form.value = productLink;
-    google.value = googleLink;
-    /*
-    const btnAddProduct = document.querySelector("#btn-read-product");
-
-    btnAddProduct.addEventListener("click", function(){
-
-        const title = document.querySelector("#input-title");
-        const description = document.querySelector("#input-description");
-        const image = document.querySelector("#input-image");
-        const productLink= document.querySelector("#input-product-link");
-        const google_link= document.querySelector("#input-google-link");
-        
-        let products = getLocalStorage("products");
-
-        products.forEach((product) => {
-
-            if (product.id == id){
-                product.title = title.value;
-                product.description = description.value;
-                product.img_src = image.value;
-                product.prod_link = productLink.value;
-                product.google_link = google_link.value;
-            }
-
-        });
-
-        saveLocalStorage("products", products);
-        clearForm();
-
-    });
-    */
-}
-
-
-function clearForm() {
-    document.querySelector("#miForm").reset();
-  }
