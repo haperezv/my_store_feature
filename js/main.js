@@ -55,6 +55,16 @@ function showProduct(product){
     googleLink.href = product.google_link;
     googleLink.textContent = "google"
 
+    const  myNodeCardFooter = document.createElement('div');
+    myNodeCardFooter.classList.add('card-footer');
+
+    const buttonProduct = document.createElement('a');
+    buttonProduct.classList.add('btn', 'btn-primary');
+    buttonProduct.textContent = 'read more';
+    buttonProduct.id = `read-${product.id}`;
+    myNodeCardBody.appendChild(myNodeCardFooter);
+    myNodeCardFooter.appendChild(buttonProduct);
+
     // anidaciones
 
     myNodeCardBody.appendChild(myNodeImagen);
@@ -70,12 +80,15 @@ function showProduct(product){
 
 // myProducts is an array of product objects, iterate throught it and call showProduct function to draw in DOM 
 function showProducts(myProducts) {
+    const DOMitems = document.querySelector("#items");
+    DOMitems.innerHTML = "";
     myProducts.forEach((product) => {
         showProduct(product);
     });
 }
 
 const btnAddProduct = document.querySelector("#btn-add-product");
+const btnEditProduct = document.querySelector("#btn-edit-product");
 
 btnAddProduct.addEventListener("click", function(){
     const title = document.querySelector("#input-title");
@@ -99,6 +112,63 @@ btnAddProduct.addEventListener("click", function(){
     saveLocalStorage("products", products);
 })
 
+btnEditProduct.addEventListener("click", function(){
+    const id = document.querySelector("#input-id");
+    const title = document.querySelector("#input-title");
+    const description = document.querySelector("#input-description");
+    const imageUrl = document.querySelector("#input-image");
+    const productLink = document.querySelector("#input-product-link");
+    const googleLink = document.querySelector("#input-google-link");
+
+    let product = {
+        id: id.value,
+        title: title.value,
+        description: description.value,
+        img_src: imageUrl.value,
+        prod_link: productLink.value,
+        google_link: googleLink.value
+    }
+
+    editProduct(id.value, product);
+})
+
+
+
+function editProduct(id, object) {
+    let products = JSON.parse(localStorage.getItem("products"));
+    products.forEach((product) => {
+      if (product.id == id) {
+        product.title = object.title;
+        product.description = object.description;
+        product.img_src = object.img;
+        product.google_link = object.linkG;
+        product.prod_link = object.linkp;
+      }
+    });
+
+   //add in the variable the object with id(index) and add the new properties and show this in console
+  
+    saveLocalStorage("products", products);
+    showProducts(products);
+}
+
+function readProducts(id,title,description,imageUrl,productLink,googleLink){
+    const id_form = document.querySelector("#input-id");
+    const title_form = document.querySelector("#input-title");
+    const description_form = document.querySelector("#input-description");
+    const image = document.querySelector("#input-image");
+    const product_form = document.querySelector("#input-product-link");
+    const google= document.querySelector("#input-google-link");
+
+    id_form.value = id;
+    title_form.value = title;
+    description_form.value = description;
+    image.value = imageUrl;
+    product_form.value = productLink;
+    google.value = googleLink;
+
+
+}
 // PROGRAMA PRINCIPAL
 
 // ask for info in local storage to avoid rewrite it
@@ -115,7 +185,17 @@ if (getLocalStorage("products") == null){
 } else {
  const products = getLocalStorage("products");
  showProducts(products);
+
+ products.forEach((product) => {
+    const buttonProduct = document.querySelector(`#read-${product.id}`);
+    buttonProduct.addEventListener("click", function(){
+        readProducts(product.id,product.title,product.description,product.img_src,product.prod_link,product.google_link);
+
+    });
+})
 }
+
+
 
 
 // CRUD - Create - Read - Update - Delete
