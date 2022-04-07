@@ -59,11 +59,11 @@ function showProduct(product){
     myNodeCardFooter.classList.add('card-footer');
 
     const buttonProduct = document.createElement('a');
-    buttonProduct.classList.add('btn', 'btn-primary');
-    buttonProduct.textContent = 'read more';
+    buttonProduct.classList.add('btn', 'btn-warning', 'btn-style');
+    buttonProduct.textContent = 'Get';
     buttonProduct.id = `read-${product.id}`;
-    myNodeCardBody.appendChild(myNodeCardFooter);
-    myNodeCardFooter.appendChild(buttonProduct);
+
+    
 
     // anidaciones
 
@@ -73,6 +73,9 @@ function showProduct(product){
     myNodeCardBody.appendChild(prodLink);
     myNodeCardBody.appendChild(googleLink);
     myNode.appendChild(myNodeCardBody);
+    myNodeCardBody.appendChild(myNodeCardFooter);
+    myNodeCardFooter.appendChild(buttonProduct);
+
 
     const DOMitems = document.querySelector("#items");
     DOMitems.appendChild(myNode);
@@ -89,6 +92,7 @@ function showProducts(myProducts) {
 
 const btnAddProduct = document.querySelector("#btn-add-product");
 const btnEditProduct = document.querySelector("#btn-edit-product");
+const btnDeleteProduct = document.querySelector("#btn-delete-product");
 
 btnAddProduct.addEventListener("click", function(){
     const title = document.querySelector("#input-title");
@@ -110,6 +114,7 @@ btnAddProduct.addEventListener("click", function(){
     showProduct(product);
     products.push(product);
     saveLocalStorage("products", products);
+    clearForm();
 })
 
 btnEditProduct.addEventListener("click", function(){
@@ -131,12 +136,15 @@ btnEditProduct.addEventListener("click", function(){
     editProduct(id.value, product);
 })
 
+btnDeleteProduct.addEventListener("click", function(){
+    const id = document.querySelector("#input-id");
+    deleteProduct(id.value);
+})
+
 
 
 function editProduct(id, object) {
     let products = JSON.parse(localStorage.getItem("products"));
-    console.log(object);
-    console.log(object.src);
     products.forEach((product) => {
       if (product.id == id) {
         product.title = object.title;
@@ -152,6 +160,14 @@ function editProduct(id, object) {
     saveLocalStorage("products", products);
     showProducts(products);
 
+   clearForm();
+}
+
+function deleteProduct(id) {
+    let products = JSON.parse(localStorage.getItem("products"));
+    products = products.filter((product) => product.id != id);
+    saveLocalStorage("products", products);
+    showProducts(products);
     clearForm();
 }
 
