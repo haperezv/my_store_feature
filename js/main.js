@@ -128,7 +128,6 @@ btnEditProduct.addEventListener("click", function(){
         prod_link: productLink.value,
         google_link: googleLink.value
     }
-
     editProduct(id.value, product);
 })
 
@@ -136,13 +135,15 @@ btnEditProduct.addEventListener("click", function(){
 
 function editProduct(id, object) {
     let products = JSON.parse(localStorage.getItem("products"));
+    console.log(object);
+    console.log(object.src);
     products.forEach((product) => {
       if (product.id == id) {
         product.title = object.title;
         product.description = object.description;
-        product.img_src = object.img;
-        product.google_link = object.linkG;
-        product.prod_link = object.linkp;
+        product.img_src = object.img_src;
+        product.google_link = object.google_link;
+        product.prod_link = object.prod_link;
       }
     });
 
@@ -150,6 +151,8 @@ function editProduct(id, object) {
   
     saveLocalStorage("products", products);
     showProducts(products);
+
+    clearForm();
 }
 
 function readProducts(id,title,description,imageUrl,productLink,googleLink){
@@ -166,7 +169,7 @@ function readProducts(id,title,description,imageUrl,productLink,googleLink){
     image.value = imageUrl;
     product_form.value = productLink;
     google.value = googleLink;
-
+       
 
 }
 // PROGRAMA PRINCIPAL
@@ -190,11 +193,14 @@ if (getLocalStorage("products") == null){
     const buttonProduct = document.querySelector(`#read-${product.id}`);
     buttonProduct.addEventListener("click", function(){
         readProducts(product.id,product.title,product.description,product.img_src,product.prod_link,product.google_link);
-
+        
     });
 })
 }
 
+function clearForm() {
+    document.querySelector("#miForm").reset();
+}
 
 
 
